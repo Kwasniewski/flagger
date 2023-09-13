@@ -26,6 +26,7 @@ type Controller interface {
 	GetMetadata(canary *flaggerv1.Canary) (string, string, map[string]int32, error)
 	SyncStatus(canary *flaggerv1.Canary, status flaggerv1.CanaryStatus) error
 	SetStatusFailedChecks(canary *flaggerv1.Canary, val int) error
+	SetStatusFailedGraceChecks(canary *flaggerv1.Canary, val int) error
 	SetStatusWeight(canary *flaggerv1.Canary, val int) error
 	SetStatusIterations(canary *flaggerv1.Canary, val int) error
 	SetStatusPhase(canary *flaggerv1.Canary, phase flaggerv1.CanaryPhase) error

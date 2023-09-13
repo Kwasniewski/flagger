@@ -431,10 +431,22 @@ func (c *Controller) advanceCanary(name string, namespace string) {
 		}
 	} else {
 		if ok := c.runAnalysis(cd); !ok {
-			if err := canaryController.SetStatusFailedChecks(cd, cd.Status.FailedChecks+1); err != nil {
-				c.recordEventWarningf(cd, "%v", err)
+			// check if this is in the grace threshold
+			if cd.Status.FailedGraceChecks >= cd.GetAnalysis().GraceThreshold {
+				if err := canaryController.SetStatusFailedChecks(cd, cd.Status.FailedChecks+1); err != nil {
+					c.recordEventWarningf(cd, "%v", err)
+				}
+			} else {
+				if err := canaryController.SetStatusFailedGraceChecks(cd, cd.Status.FailedGraceChecks+1); err != nil {
+					c.recordEventWarningf(cd, "%v", err)
+				}
 			}
 			return
+		} else {
+			// we no longer need grace checks if the analysis has passed
+			if err := canaryController.SetStatusFailedGraceChecks(cd, cd.GetAnalysis().GraceThreshold); err != nil {
+				c.recordEventWarningf(cd, "%v", err)
+			}
 		}
 	}
 

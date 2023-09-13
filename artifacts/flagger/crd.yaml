@@ -1098,6 +1098,9 @@ spec:
                           description: MaxAge indicates the number of seconds until the session affinity cookie will expire.
                           default: 86400
                           type: number
+                    graceThreshold:
+                      description: number of analysis iterations that can gracefully fail initially before adding to the failure count
+                      type: number
             status:
               description: CanaryStatus defines the observed state of a canary.
               type: object

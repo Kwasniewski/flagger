@@ -45,6 +45,11 @@ func (c *ServiceController) SetStatusFailedChecks(cd *flaggerv1.Canary, val int)
 	return setStatusFailedChecks(c.flaggerClient, cd, val)
 }
 
+// SetStatusFailedGraceChecks updates the canary failed checks counter
+func (c *ServiceController) SetStatusFailedGraceChecks(cd *flaggerv1.Canary, val int) error {
+	return setStatusFailedGraceChecks(c.flaggerClient, cd, val)
+}
+
 // SetStatusWeight updates the canary status weight value
 func (c *ServiceController) SetStatusWeight(cd *flaggerv1.Canary, val int) error {
 	return setStatusWeight(c.flaggerClient, cd, val)

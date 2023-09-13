@@ -87,4 +87,6 @@ type CanaryStatus struct {
 	LastTransitionTime metav1.Time `json:"lastTransitionTime,omitempty"`
 	// +optional
 	Conditions []CanaryCondition `json:"conditions,omitempty"`
+	// +optional
+	FailedGraceChecks int `json:"failedGraceChecks"`
 }

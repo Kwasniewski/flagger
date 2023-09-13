@@ -276,6 +276,11 @@ type CanaryAnalysis struct {
 	// SessionAffinity represents the session affinity settings for a canary run.
 	// +optional
 	SessionAffinity *SessionAffinity `json:"sessionAffinity,omitempty"`
+
+	// GraceThreshold represents the number of analysis iterations that can gracefully fail
+	// initially before adding to the failure threshold.
+	// +optional
+	GraceThreshold int `json:"graceThreshold,omitempty"`
 }
 
 type SessionAffinity struct {
