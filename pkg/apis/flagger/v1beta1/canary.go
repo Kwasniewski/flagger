@@ -276,6 +276,10 @@ type CanaryAnalysis struct {
 	// SessionAffinity represents the session affinity settings for a canary run.
 	// +optional
 	SessionAffinity *SessionAffinity `json:"sessionAffinity,omitempty"`
+
+	// StartingWeight is the weight we start the canary analysis at
+	// +optional
+	StartingWeight int `json:"startingWeight,omitempty"`
 }
 
 type SessionAffinity struct {

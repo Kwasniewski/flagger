@@ -430,11 +430,14 @@ func (c *Controller) advanceCanary(name string, namespace string) {
 			return
 		}
 	} else {
-		if ok := c.runAnalysis(cd); !ok {
-			if err := canaryController.SetStatusFailedChecks(cd, cd.Status.FailedChecks+1); err != nil {
-				c.recordEventWarningf(cd, "%v", err)
+		// check if we are ready to run the analysis based on the starting weight
+		if canaryWeight > cd.GetAnalysis().StartingWeight {
+			if ok := c.runAnalysis(cd); !ok {
+				if err := canaryController.SetStatusFailedChecks(cd, cd.Status.FailedChecks+1); err != nil {
+					c.recordEventWarningf(cd, "%v", err)
+				}
+				return
 			}
-			return
 		}
 	}
 
